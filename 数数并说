@@ -1,0 +1,37 @@
+class Solution:
+    def countAndSay(self, n):
+        """
+        :type n: int
+        :rtype: str
+        """
+        #本题的意思是报上一个人说的数并说出来
+        L=['1','11','21','1211','111221']
+        if n<6:
+            return L[n-1]
+        else:
+            count=5
+            m=1
+            while n!=count:
+                s=L[count-1]
+                a=[]
+                for i in range(len(s)):
+                    if i==len(s)-1:#判断i是否为倒数第一个字符
+                        if s[i]==s[i-1]:
+                            a.append(str(m))
+                            a.append(s[i])
+                        else :
+                            a.append('1')
+                            a.append(s[i])
+                    else :
+                        if s[i]==s[i+1]:
+                            m+=1
+                        else :
+                            a.append(str(m))
+                            a.append(s[i])
+                            m=1
+                m=1
+                print(a)
+                b="".join(a)
+                L.append(b)
+                count+=1
+            return L[n-1]
