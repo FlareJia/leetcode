@@ -1,0 +1,29 @@
+class Solution(object):
+    def longestCommonPrefix(self, strs):
+        """
+        :type strs: List[str]
+        :rtype: str
+        """
+        L=[]
+        if len(strs)==0:
+            return ''
+        elif len(strs)==1:
+            return strs[0]
+        else:
+            for i in strs:
+                L.append(len(i))
+        minl=min(L)
+        #print('length of min',minl)
+        n=0#记录公共前缀长度
+        flag=0#用作外层循环是否继续，为0继续，为1停止
+        for i in range(minl):
+            if flag==1:
+                break
+            for j in range(len(strs)-1):
+                if strs[j][i]!=strs[j+1][i]:
+                    flag=1
+                    break
+                elif j==len(strs)-2:
+                    n+=1
+        #print(n)
+        return strs[0][:n]
