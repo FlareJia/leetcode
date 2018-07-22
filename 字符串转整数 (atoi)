@@ -1,0 +1,52 @@
+class Solution:
+    def myAtoi(self, str):
+        """
+        :type str: str
+        :rtype: int
+        """
+        #先处理空格：
+        n=0
+        for i in str:
+            if i==' ':
+                n+=1
+            else:
+                break
+        str=str[n:]
+        print('1:'+str)
+        if len(str)==0:
+            return 0
+        
+        L=['0','1','2','3','4','5','6','7','8','9']
+        L1=['-','+']
+        if not(str[0] in L1 or str[0] in L):
+            print('first')
+            return 0
+        elif (str[0]=='-' and len(str)==1) or (str[0]=='+' and len(str)==1):
+            print('second')
+            return 0
+        elif (str[0]=='-' and not str[1] in L) or (str[0]=='+' and not str[1] in L):
+            print('third')
+            return 0
+        
+        L2=[]
+        flag=0
+        for i in range(len(str)):
+            if str[i] in L1 and flag==0 :
+                L2.append(str[i])
+                flag=1
+            elif flag==1 and str[i]=='-':
+                break
+            elif str[i] in L:
+                L2.append(str[i])
+                flag=1
+            elif not str[i] in L:
+                break
+                
+        r=int(''.join(L2))
+        print('2:',r)
+        if r<pow(-2,31):
+            return pow(-2,31)
+        elif r>pow(2,31)-1:
+            return pow(2,31)-1
+        else:
+            return r
