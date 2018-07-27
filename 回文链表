@@ -1,0 +1,82 @@
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def isPalindrome(self, head):
+        """
+        :type head: ListNode
+        :rtype: bool
+        """
+        t=head
+        n=0
+        while t!=None:
+            n+=1
+            t=t.next
+        if n==0 or n==1:
+            return True
+        elif n==2:
+            if head.val==head.next.val:
+                return True
+            else:
+                return False
+        elif n%2==0: #n为偶数时
+            m1=int(n/2)
+            m2=m1
+            m3=m1
+            print('m1',m1)
+            a=head
+            while m1>0:#a来代表后面的链表
+                a=a.next
+                m1-=1
+            b=head.next
+            head.next=None
+            c=b.next
+            b.next=head
+            m2-=1
+            while m2>1:
+                head=b
+                b=c
+                c=c.next
+                b.next=head
+                m2-=1
+            while m3>0:
+                m3-=1
+                if b.val!=a.val:
+                    return False
+                b=b.next
+                a=a.next
+            return True
+        else: #n为奇数时
+            m1=int((n+1)/2)
+            m2=m1
+            m3=m1
+            print('m1',m1)
+            a=head
+            while m1>1:#a来代表后面的链表
+                a=a.next
+                m1-=1
+            a=a.next
+            b=head.next
+            head.next=None
+            c=b.next
+            b.next=head
+            m2-=1
+            while m2>1:
+                head=b
+                b=c
+                c=c.next
+                b.next=head
+                m2-=1
+            b=b.next
+            while m3>1:
+                m3-=1
+                print('b',b.val)
+                print('a',a.val)
+                if b.val!=a.val:
+                    return False
+                b=b.next
+                a=a.next
+            return True
