@@ -1,0 +1,48 @@
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+
+class Solution(object):
+ 
+    def isSymmetric(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        if root==None:
+            return True
+        return self.compRoot(root.left , root.right)
+    
+    def compRoot(self,lroot,rroot):
+        if lroot==None:
+            return (rroot==None)
+        if rroot==None:
+            return False
+        if lroot.val!=rroot.val:
+            return False
+        return self.compRoot(lroot.left,rroot.right) and self.compRoot(lroot.right,rroot.left)
+        
+        ####################################others
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def isSymmetric(self, root):
+        """
+        :type root: TreeNode
+        :rtype: bool
+        """
+        def t_equal_rec(l,r):
+            if not l and not r: return True
+            if not l or not r: return False
+            return l.val==r.val and t_equal_rec(l.left, r.right) and t_equal_rec(l.right, r.left)
+        if not root: return True
+        return t_equal_rec(root.left, root.right)
