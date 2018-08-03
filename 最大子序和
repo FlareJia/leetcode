@@ -1,0 +1,35 @@
+class Solution(object):
+    def maxSubArray(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """ 
+        n=len(nums)
+        thisSum=0
+        maxSum=max(nums)
+        for j in range(n):
+	        thisSum+=nums[j]
+	        if thisSum>maxSum:
+		        maxSum=thisSum
+	        elif thisSum<0:
+		        thisSum=0
+        return maxSum
+    
+'''
+方法2 最优解
+        最大子序列起点不可能是负数
+        同理最大子序列的前缀也不可能是负的子序列
+        
+        if nums == []:
+            return 0
+        
+        valSum, maxSum = 0, nums[0]
+        for i in range(0, len(nums)):
+            valSum += nums[i]
+            if valSum > maxSum:
+                maxSum = valSum
+            if valSum < 0:
+                valSum = 0
+                
+        return maxSum
+'''
