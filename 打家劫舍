@@ -1,0 +1,28 @@
+class Solution(object):
+    def rob(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        last=0
+        now=0
+        for i in range(len(nums)):
+            t=last
+            last=now
+            now=max(t+nums[i],now)
+        return now
+        
+        
+    '''
+        n=len(nums)
+        return self.reMax(nums, n)
+    
+    def reMax(self, nums, n):
+        if n==0:
+            return 0
+        if n==1:
+            return nums[0]
+        if n==2:
+            return max(nums[0], nums[1])
+        if n>2:
+            return max(self.reMax(nums[:-2], n-2) + nums[-1],self.reMax(nums[:-1], n-1))
