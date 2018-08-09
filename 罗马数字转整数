@@ -1,0 +1,46 @@
+class Solution(object):
+    def romanToInt(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        dic={'I':1, 'V':5, 'X':10, 'L':50, 'C':100, 'D':500, 'M':1000};
+        r=0
+        flag=0
+        for i in range(len(s)):
+            if flag==1:
+                flag=0
+                continue
+            if s[i]=='I':
+                if i+1<len(s) and s[i+1]=='V':
+                    flag=1
+                    r+=4
+                elif i+1<len(s) and s[i+1]=='X':
+                    flag=1
+                    r+=9
+                else:
+                    #print('*')
+                    r+=1
+                    
+            elif s[i]=='X':
+                if i+1<len(s) and s[i+1]=='L':
+                    flag=1
+                    r+=40
+                elif i+1<len(s) and s[i+1]=='C':
+                    flag=1
+                    r+=90
+                else:
+                    r+=10
+            elif s[i]=='C':
+                if i+1<len(s) and s[i+1]=='D':
+                    flag=1
+                    r+=400
+                elif i+1<len(s) and s[i+1]=='M':
+                    flag=1
+                    r+=900
+                else:
+                    r+=100
+            else:
+                r+=dic[s[i]]
+            print ("i=",i,"  r=",r)
+        return r
