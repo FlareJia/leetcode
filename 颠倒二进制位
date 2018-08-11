@@ -1,0 +1,17 @@
+class Solution:
+    # @param n, an integer
+    # @return an integer
+    def reverseBits(self, n):
+        L=[]
+        L=bin(n)
+        L=L[::-1][:-2]
+        print(L)
+        s=0
+        i=31
+        for t in L:
+            if t == '1':
+                s=s+2**i
+            i-=1
+        print(s)
+        return s
+       
