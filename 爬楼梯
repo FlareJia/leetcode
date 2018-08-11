@@ -1,0 +1,29 @@
+class Solution(object):
+    def climbStairs(self, n):
+        """
+        :type n: int
+        :rtype: int
+        """
+        
+        if n==1:
+            return 1
+        else:
+            sum=1
+            t=n-1
+            for i in range(1,n):
+                if t==i:
+                    sum+=1
+                    break
+                if t<i:
+                    break
+                sum+=(self.factorial(t)/(self.factorial(i)*self.factorial(t-i)))
+                t-=1
+        return sum       
+        
+    def factorial(self,n):
+        if n==0:
+            return 1
+        if n==1:
+                return 1
+        else:
+                return n*self.factorial(n-1)
