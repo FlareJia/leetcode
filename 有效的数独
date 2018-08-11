@@ -1,0 +1,44 @@
+class Solution:
+    def isValidSudoku(self, board):
+        """
+        :type board: List[List[str]]
+        :rtype: bool
+        """
+        L1=[0,0,0,0,0,0,0,0,0]
+        L2=[0,0,0,0,0,0,0,0,0]
+        L3=[]
+        for i in range(9):
+            for j in range(9):
+                if board[i][j]!=".":
+                    if board[i][j] in L1:
+                        return False
+                    else:
+                        L1[j]=board[i][j]
+            L1=[0,0,0,0,0,0,0,0,0]
+        for i in range(9):
+            for j in range(9):
+                if board[j][i]!=".":
+                    if board[j][i] in L2:
+                        return False
+                    else:
+                        L2[j]=board[j][i]
+            L2=[0,0,0,0,0,0,0,0,0]
+        m=1
+        a=3
+        b=3
+        while m<10:
+            for i in range(a-3,a):
+                for j in range(b-3,b):
+                    if board[i][j]!=".":
+                        if board[i][j] in L3:
+                            return False
+                        else:
+                            L3.append(board[i][j])
+            L3=[]
+            b=b+3
+            if m%3==0:
+                a=a+3
+            if b>9:
+                b=3
+            m+=1
+        return True
