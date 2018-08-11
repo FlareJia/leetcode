@@ -1,0 +1,22 @@
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def postorderTraversal(self, root):
+        """
+        :type root: TreeNode
+        :rtype: List[int]
+        """
+        s=[]
+        def frontOrder(root):
+            if root==None:
+                return
+            frontOrder(root.left)
+            frontOrder(root.right)
+            s.append(root.val)
+        frontOrder(root)
+        return s
