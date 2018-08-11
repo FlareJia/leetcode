@@ -1,0 +1,19 @@
+class Solution:
+    def rotate(self, matrix):
+        """
+        :type matrix: List[List[int]]
+        :rtype: void Do not return anything, modify matrix in-place instead.
+        """
+        long=len(matrix)#计算出是几*几的矩阵
+        i=0#记录对角元素的坐标
+        while i<long:
+            j=i+1
+            while j<long:
+                t=matrix[i][j]
+                matrix[i][j]=matrix[j][i]
+                matrix[j][i]=t
+                j+=1
+            i+=1
+        for k in range(long):
+            matrix[k].reverse()
+        return None
