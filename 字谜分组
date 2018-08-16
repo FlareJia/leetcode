@@ -1,0 +1,34 @@
+class Solution(object):
+    def groupAnagrams(self, strs):
+        """
+        :type strs: List[str]
+        :rtype: List[List[str]]
+        """ 
+        '''
+        strs.sort()
+        L=[[strs[0]]]
+        for i in range(1,len(strs)):
+            for j in range(len(L)):
+                if sorted(strs[i])==sorted(L[j][0]):
+                    L[j].append(strs[i])
+                    break
+                if j==len(L)-1:
+                    a=[strs[i]]
+                    L.append(a)
+                if len(strs[i])!=len(L[j][0]):
+                    continue
+        return L
+        '''
+        map={}
+        a=[]
+        for i in strs:
+            s=''.join(sorted(i))
+            if s not in map:
+                map[s]=len(a)
+                a.append([i])
+            else:
+                a[map[s]].append(i)
+        return a
+    
+            
+        
