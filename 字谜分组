@@ -19,14 +19,14 @@ class Solution(object):
                     continue
         return L
         '''
-        map={}
-        a=[]
+        map={}#用来分类
+        a=[]#用来存储并最后返回
         for i in strs:
-            s=''.join(sorted(i))
-            if s not in map:
+            s=''.join(sorted(i))#将每个获得的单词排序
+            if s not in map:#若在map中不在，则添加一个类别
                 map[s]=len(a)
                 a.append([i])
-            else:
+            else:#若已经存在于map中，则添加进a中
                 a[map[s]].append(i)
         return a
     
