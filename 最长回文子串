@@ -1,0 +1,23 @@
+class Solution(object):
+    def longestPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: str
+        """
+        if not s:
+            return ''
+        answer=s[0]
+        for i in range(len(s)+1):
+            j=len(s)
+            if j-i<=len(answer):
+                break
+            while j>i:
+                if j-i<=len(answer):
+                    break
+                a=s[i:j]
+                b=a[::-1]
+                #print(a,b)
+                if a==b and len(a)>len(answer):
+                    answer = a
+                j-=1
+        return answer
