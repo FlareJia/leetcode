@@ -1,0 +1,51 @@
+class Solution(object):
+    def increasingTriplet(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: bool
+        """
+        if len(nums)<3:
+            return False
+        if min(nums)+1>=max(nums):
+            return False
+        s=sorted(nums)
+        if nums[::-1]==s:
+            return False
+        mini=0
+        maxi=len(nums)-1
+        while mini+1<maxi:
+            for i in nums[mini+1:maxi]:
+                if i>nums[mini] and i<nums[maxi]:
+                    return True
+            if nums[maxi-1]>nums[maxi]:
+                maxi-=1
+                continue
+            if nums[mini]>nums[mini+1]:
+                mini+=1
+                continue
+            maxi-=1
+        mini=0
+        maxi=len(nums)-1
+        while mini+1<maxi:
+            for i in nums[mini+1:maxi]:
+                if i>nums[mini] and i<nums[maxi]:
+                    return True
+            if nums[maxi-1]>nums[maxi]:
+                maxi-=1
+                continue
+            if nums[mini]>nums[mini+1]:
+                mini+=1
+                continue
+            mini+=1
+        return False
+        '''
+        a=b=None
+        for n in nums:
+            if a is None or a>=n:
+                a=n
+            elif b is None or b>=n:
+                b=n
+            else:
+                return True
+        return False
+        '''
