@@ -19,7 +19,7 @@ class Solution(object):
         #none就出
         while stack:
             y=[]
-            #出栈
+            #队头pop()
             #每一层
             for i in range(len(stack)):
                 current = stack.pop(0)
@@ -36,19 +36,26 @@ class Solution(object):
         if root==None:
             return result
         queue=[root]
-        
+        #创建一个队列
+        #当队列不为空的时候就循环
         while len(queue):
+            #temp用来赞存每行的结点
             temp=[]
             length=len(queue)
             # print('a=',a)
+            #遍历队列（仅有本层的结点，下层的结点下面的if才会添加）
             for i in range(length):
+                #node为队头出队结点
                 node=queue.pop(0)
                 # print('n=',node.val)
+                #temp依次将这个结点添加
                 temp.append(node.val)
+                #这个时候判断本层结点是否有下层结点，有就入队
                 if node.left:
                     queue.append(node.left)
                 if node.right:
                     queue.append(node.right)
+            #for循环将本层结点已经全部添加到了temp，此时再将temp如result
             result.append(temp)
         
         
