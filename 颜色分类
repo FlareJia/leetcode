@@ -1,0 +1,26 @@
+class Solution(object):
+    def sortColors(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: void Do not return anything, modify nums in-place instead.
+        """
+        
+        for i in range(len(nums) - 1):  # 这个循环负责设置冒泡排序进行的次数
+            for j in range(len(nums) - i - 1):  # j为列表下标
+                if nums[j] > nums[j + 1]:
+                    nums[j], nums[j + 1] = nums[j + 1], nums[j]
+        print(nums)
+        
+        '''
+        # more efficient solution in leetcode
+        a = b = 0
+        for i in xrange(len(nums)):
+            tmp = nums[i]
+            nums[i] = 2
+            if tmp < 2:
+                nums[b] = 1
+                b += 1
+            if tmp < 1:
+                nums[a] = 0
+                a += 1
+        '''
