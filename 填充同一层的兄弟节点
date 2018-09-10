@@ -1,0 +1,46 @@
+# Definition for binary tree with next pointer.
+# class TreeLinkNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+#         self.next = None
+
+class Solution:
+    # @param root, a tree link node
+    # @return nothing
+    def connect(self, root):
+        result=[]
+        if root==None:
+            return None
+        queue=[root]
+        #创建一个队列
+        #当队列不为空的时候就循环
+        while len(queue):
+            #temp用来赞存每行的结点
+            temp=[]
+            length=len(queue)
+            # print('a=',a)
+            #遍历队列（仅有本层的结点，下层的结点下面的if才会添加）
+            for i in range(length):
+                #node为队头出队结点
+                node=queue.pop(0)
+                # print('n=',node.val)
+                #temp依次将这个结点添加
+                temp.append(node)
+                #这个时候判断本层结点是否有下层结点，有就入队
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+            #for循环将本层结点已经全部添加到了temp，此时再将temp如result
+            result.append(temp)
+        
+        
+        for i in range(len(result)):
+            for j in range(len(result[i])):
+                if j!=len(result[i])-1:
+                    result[i][j].next = result[i][j+1]
+                else:
+                    result[i][j].next = None
+                    
