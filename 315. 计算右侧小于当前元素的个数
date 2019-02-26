@@ -1,0 +1,57 @@
+struct BSTNode{
+    int val;
+    int count;
+    BSTNode *left;
+    BSTNode *right;
+    BSTNode(int x):val(x),left(nullptr),right(nullptr),count(0){}
+};
+ 
+class Solution {
+public:
+    void BST_insert(BSTNode *node, BSTNode *insert_node, int &count_small){
+        if(insert_node->val <= node->val){
+            node->count++;
+            if(node->left){
+                BST_insert(node->left, insert_node, count_small);
+            }else{
+                node->left=insert_node;
+            }
+        }else{
+            count_small+=node->count+1;
+            if(node->right){
+                BST_insert(node->right, insert_node, count_small);
+            }else{
+                node->right=insert_node;
+            }
+        }
+    }
+    
+    vector<int> countSmaller(vector<int>& nums) {
+        //最终逆序的数组
+        vector<int>result;
+        //创建二叉查找树节点池
+        vector<BSTNode*>node_vec;
+        //从后向前插入过程中，比当前节点值小的count_small数组
+        vector<int>count;
+        for(int i=nums.size()-1; i>=0; i--){
+            node_vec.push_back(new BSTNode(nums[i]));
+        }
+        
+        count.push_back(0);
+        for(int i=1; i<node_vec.size(); i++){
+            int count_small=0;
+            //将第2到第n个节点插入到以第一个节点为根节点的二叉排序树中
+            //插入过程中计算每个节点的count_small
+            BST_insert(node_vec[0], node_vec[i], count_small);
+            //将count_small数组按照从后向前的顺序push进result数组
+            count.push_back(count_small);
+        }
+        
+        //回收内存
+        for(int i=node_vec.size()-1; i>=0; i--){
+            delete node_vec[i];
+            result.push_back(count[i]);
+        }
+        return result;
+    }
+};
