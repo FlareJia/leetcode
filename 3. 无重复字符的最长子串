@@ -1,0 +1,33 @@
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        map<char, int> dp; // dp辅助空间,用来记录每个字符出现的最新下标
+        int max=INT_MIN;
+        int current=0;
+        for(int i=0; i<s.size(); i++){
+            int prevIndex;
+            if(dp.count(s[i]) == 0){
+                prevIndex = -1;
+            }else{
+                prevIndex = dp[s[i]]; // 先查看当前遍历到的字符在辅助空间dp中之前的位置。
+            } 
+            if(prevIndex==-1 || i-prevIndex > current){ 
+                // 若当前遍历到的字符之前不在dp中 
+                // 或者 它不在当前计算最长字符之中，则当前最长字符数加1
+                current++;
+            }
+            else{ // 当前遍历到的字符在dp中存在过 且 它在当前计算最长字符之中，将当前最长字符数变为 i-prevIndex
+                if(current>max){
+                    max = current;
+                    cout<< max <<"\n";
+                }
+                current = i-prevIndex;
+            }
+            dp[s[i]] = i;
+        }
+        if(current > max){
+            max = current;
+        }
+        return max;
+    }
+};
