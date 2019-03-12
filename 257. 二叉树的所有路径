@@ -1,0 +1,25 @@
+class Solution {
+public:
+    vector<string> res;
+    vector<string> binaryTreePaths(TreeNode* root) {
+        string temp;
+        preorderTree(root, temp);
+        return res;
+    }
+    void preorderTree(TreeNode* root, string temp){
+        if(root==NULL){
+            return;
+        }
+        string s = to_string(root->val)+"->";
+        temp += s;
+        if(root->left==NULL && root->right==NULL){
+            temp.pop_back();
+            temp.pop_back();
+            res.push_back(temp);
+            //cout<< temp;
+            return;
+        }
+        preorderTree(root->left, temp);
+        preorderTree(root->right, temp);
+    }
+};
