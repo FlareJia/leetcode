@@ -1,0 +1,56 @@
+
+class Solution {
+public:
+    TreeNode* increasingBST(TreeNode* root) {
+        TreeNode* node = nullptr, *head = nullptr;
+        stack<TreeNode*> s;
+        while(!s.empty() || root){
+            while (root) {
+                s.push(root);
+                root = root->left;
+            }
+            if(!s.empty()){
+                root = s.top();
+                s.pop();
+                if(!node) {
+                    node = new TreeNode(root->val);
+                    head = node;
+                }else{
+                    node->right = new TreeNode(root->val);
+                    node = node->right;
+                }
+                root = root->right;
+            }
+        }
+        return head;
+    }
+};
+
+
+
+class Solution {
+public:
+    TreeNode* res=new TreeNode(-1);
+    TreeNode* head =res;
+    TreeNode* increasingBST(TreeNode* root) {
+        if(root==NULL){
+            return res;
+        }
+        inorder(root);
+        return head->right;
+    }
+    void inorder(TreeNode* root){
+        if(root->left!=NULL){
+            inorder(root->left);
+        }
+        res->left=NULL;
+        TreeNode* t = new TreeNode(root->val);
+        res->right = t;
+        res=t;
+        if(root->right!=NULL){
+            inorder(root->right);
+        }
+        return;
+    }  
+        
+};
