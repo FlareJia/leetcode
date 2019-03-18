@@ -1,0 +1,40 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+// 思路：层序遍历 每次返回最后一个节点
+class Solution {
+public:
+    vector<int> rightSideView(TreeNode* root) {
+        vector<int> res;
+        if(root==NULL){
+            return res;
+        }
+        queue<TreeNode*> q;
+        q.push(root);
+        while(!q.size()==0){
+            int length = q.size();
+            int count =0;
+            while(count< length){
+                TreeNode* node = q.front();
+                q.pop();
+                if(count == length -1){
+                    res.push_back(node->val);
+                }
+                if(node->left != NULL){
+                    q.push(node->left);
+                }
+                if(node->right != NULL){
+                    q.push(node->right);
+                }
+                count++;
+            }
+        }
+        return res;
+    }
+};
