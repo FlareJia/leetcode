@@ -1,0 +1,56 @@
+//给定一个二叉树（具有根结点 root）， 一个目标结点 target ，和一个整数值 K 。
+//返回到目标结点 target 距离为 K 的所有结点的值的列表。 答案可以以任何顺序返回。
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> distanceK(TreeNode* root, TreeNode* target, int K) {
+        build_graph(NULL, root);
+        vector<int> res; //存答案
+        unordered_set<TreeNode*> v;// 用来遍历整个图
+        queue<TreeNode*> que;
+        v.insert(target);// 用来防止重复入队列
+        que.push(target);
+        int k=0;
+        while(!que.empty() && k<=K){
+            int size = que.size();
+            while(size-- > 0){
+                TreeNode* node = que.front();
+                que.pop();
+                if(k==K){
+                    res.push_back(node->val);
+                }
+                for(TreeNode* child:m[node]){// 遍历node的所有邻接节点
+                    if(v.count(child)){
+                            continue;
+                    }
+                    que.push(child);
+                    v.insert(child);
+                }
+            }
+            ++k;
+        }
+        return res;
+    }
+    void build_graph(TreeNode* parent, TreeNode* child){// 构建图
+        if(!child){
+            // 当该节点为叶子节点时
+            return;
+        }
+        if(parent){
+            m[parent].push_back(child);
+            m[child].push_back(parent);
+        }
+        build_graph(child, child->left);
+        build_graph(child, child->right);
+    }
+private:
+    unordered_map<TreeNode*, vector<TreeNode*>> m;
+};
